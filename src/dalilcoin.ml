@@ -646,14 +646,14 @@ let initialize_commands () =
 					    let delta1str = try Printf.sprintf "address %s" (Cryptocurr.addr_daliladdrstr (payaddr_addr (Hashtbl.find propownsh pidpure))) with Not_found -> "publisher address" in
 					    let rstr =
 					      try
-						let (delta2,r) = Hashtbl.find proprightsh pidpure in
+						let (delta2,r) = Hashtbl.find proprightsh (false,pidpure) in
 						match r with
 						| None -> "no rights available (unusable)"
 						| Some(0L) -> "free to use"
 						| Some(x) -> Printf.sprintf "right for each use costs %Ld cants (%s fraenks) payable to %s" x (Cryptocurr.fraenks_of_cants x) (Cryptocurr.addr_daliladdrstr (payaddr_addr delta2))
 					      with Not_found -> "free to use"
 					    in
-					    Printf.fprintf oc "Pure proposition '%s' has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\n (This can be changed prior to publication with NewRights <propname> <payaddress> [Free|None|<fraenks>].)\n" nm delta1str rstr
+					    Printf.fprintf oc "Pure proposition '%s' has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\nThis can be changed prior to publication with\nNewRights <propname> <payaddress> [Free|None|<fraenks>]\nor\nNewPureRights <propname> <payaddress> [Free|None|<fraenks>]\n" nm delta1str rstr
 					  end;
 					  let bl = hlist_filter_assets_gen true true (fun a -> match a with (_,_,_,Bounty(_)) -> true | _ -> false) hl in
 					  if not (bl = []) then
@@ -684,14 +684,14 @@ let initialize_commands () =
 					    let delta1str = try Printf.sprintf "address %s" (Cryptocurr.addr_daliladdrstr (payaddr_addr (Hashtbl.find propownsh pidpure))) with Not_found -> "publisher address" in
 					    let rstr =
 					      try
-						let (delta2,r) = Hashtbl.find proprightsh pidpure in
+						let (delta2,r) = Hashtbl.find proprightsh (true,pidpure) in
 						match r with
 						| None -> "no rights available (unusable)"
 						| Some(0L) -> "free to use"
 						| Some(x) -> Printf.sprintf "right for each use costs %Ld cants (%s fraenks) payable to %s" x (Cryptocurr.fraenks_of_cants x) (Cryptocurr.addr_daliladdrstr (payaddr_addr delta2))
 					      with Not_found -> "free to use"
 					    in
-					    Printf.fprintf oc "Proposition '%s' in theory has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\n (This can be changed prior to publication with NewRights <propname> <payaddress> [Free|None|<fraenks>].)\n" nm delta1str rstr
+					    Printf.fprintf oc "Proposition '%s' in theory has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\nThis can be changed prior to publication with\nNewRights <propname> <payaddress> [Free|None|<fraenks>]\nor\nNewTheoryRights <propname> <payaddress> [Free|None|<fraenks>]\n" nm delta1str rstr
 					  end;
 					  let bl = hlist_filter_assets_gen true true (fun a -> match a with (_,_,_,Bounty(_)) -> true | _ -> false) hl in
 					  if not (bl = []) then
@@ -981,14 +981,14 @@ let initialize_commands () =
 			      let delta1str = try Printf.sprintf "address %s" (Cryptocurr.addr_daliladdrstr (payaddr_addr (Hashtbl.find objownsh oidpure))) with Not_found -> "publisher address" in
 			      let rstr =
 				try
-				  let (delta2,r) = Hashtbl.find objrightsh oidpure in
+				  let (delta2,r) = Hashtbl.find objrightsh (false,oidpure) in
 				  match r with
 				   | None -> "no rights available (unusable)"
 				   | Some(0L) -> "free to use"
 				   | Some(x) -> Printf.sprintf "right for each use costs %Ld cants (%s fraenks) payable to %s" x (Cryptocurr.fraenks_of_cants x) (Cryptocurr.addr_daliladdrstr (payaddr_addr delta2))
 				  with Not_found -> "free to use"
 			      in
-			      Printf.fprintf oc "Pure object '%s' has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <defname> <payaddress>.)\nRights policy: %s\n (This can be changed prior to publication with NewRights <defname> <payaddress> [Free|None|<fraenks>].)\n" nm delta1str rstr
+			      Printf.fprintf oc "Pure object '%s' has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <defname> <payaddress>.)\nRights policy: %s\nThis can be changed prior to publication with\nNewRights <defname> <payaddress> [Free|None|<fraenks>]\nor\nNewPureRights <defname> <payaddress> [Free|None|<fraenks>]\n" nm delta1str rstr
 			    end
 			| Some(beta,r) ->
 			    Printf.fprintf oc "Pure object '%s' is owned by %s: %s\n" nm (addr_daliladdrstr (payaddr_addr beta))
@@ -1008,14 +1008,14 @@ let initialize_commands () =
 			      let delta1str = try Printf.sprintf "address %s" (Cryptocurr.addr_daliladdrstr (payaddr_addr (Hashtbl.find objownsh oidpure))) with Not_found -> "publisher address" in
 			      let rstr =
 				try
-				  let (delta2,r) = Hashtbl.find objrightsh oidpure in
+				  let (delta2,r) = Hashtbl.find objrightsh (true,oidpure) in
 				  match r with
 				  | None -> "no rights available (unusable)"
 				  | Some(0L) -> "free to use"
 				  | Some(x) -> Printf.sprintf "right for each use costs %Ld cants (%s fraenks) payable to %s" x (Cryptocurr.fraenks_of_cants x) (Cryptocurr.addr_daliladdrstr (payaddr_addr delta2))
 				with Not_found -> "free to use"
 			      in
-			      Printf.fprintf oc "Object '%s' in theory has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <defname> <payaddress>.)\nRights policy: %s\n (This can be changed prior to publication with NewRights <defname> <payaddress> [Free|None|<fraenks>].)\n" nm delta1str rstr
+			      Printf.fprintf oc "Object '%s' in theory has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <defname> <payaddress>.)\nRights policy: %s\nThis can be changed prior to publication with\nNewRights <defname> <payaddress> [Free|None|<fraenks>]\nor\nNewTheoryRights <defname> <payaddress> [Free|None|<fraenks>]\n" nm delta1str rstr
 			    end
 			| Some(beta,r) ->
 			    Printf.fprintf oc "Object '%s' in theory is owned by %s: %s\n" nm (addr_daliladdrstr (payaddr_addr beta))
@@ -1044,14 +1044,14 @@ let initialize_commands () =
 			      let delta1str = try Printf.sprintf "address %s" (Cryptocurr.addr_daliladdrstr (payaddr_addr (Hashtbl.find propownsh pidpure))) with Not_found -> "publisher address" in
 			      let rstr =
 				try
-				  let (delta2,r) = Hashtbl.find proprightsh pidpure in
+				  let (delta2,r) = Hashtbl.find proprightsh (false,pidpure) in
 				  match r with
 				   | None -> "no rights available (unusable)"
 				   | Some(0L) -> "free to use"
 				   | Some(x) -> Printf.sprintf "right for each use costs %Ld cants (%s fraenks) payable to %s" x (Cryptocurr.fraenks_of_cants x) (Cryptocurr.addr_daliladdrstr (payaddr_addr delta2))
 				  with Not_found -> "free to use"
 			      in
-			      Printf.fprintf oc "Pure proposition '%s' has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\n (This can be changed prior to publication with NewRights <propname> <payaddress> [Free|None|<fraenks>].)\n" nm delta1str rstr
+			      Printf.fprintf oc "Pure proposition '%s' has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\nThis can be changed prior to publication with\nNewRights <propname> <payaddress> [Free|None|<fraenks>]\nor\nNewPureRights <propname> <payaddress> [Free|None|<fraenks>]\n" nm delta1str rstr
 			    end;
 			    let bl = hlist_filter_assets_gen true true (fun a -> match a with (_,_,_,Bounty(_)) -> true | _ -> false) hl in
 			    if not (bl = []) then
@@ -1082,14 +1082,14 @@ let initialize_commands () =
 			      let delta1str = try Printf.sprintf "address %s" (Cryptocurr.addr_daliladdrstr (payaddr_addr (Hashtbl.find propownsh pidpure))) with Not_found -> "publisher address" in
 			      let rstr =
 				try
-				  let (delta2,r) = Hashtbl.find proprightsh pidpure in
+				  let (delta2,r) = Hashtbl.find proprightsh (true,pidpure) in
 				  match r with
 				   | None -> "no rights available (unusable)"
 				   | Some(0L) -> "free to use"
 				   | Some(x) -> Printf.sprintf "right for each use costs %Ld cants (%s fraenks) payable to %s" x (Cryptocurr.fraenks_of_cants x) (Cryptocurr.addr_daliladdrstr (payaddr_addr delta2))
 				  with Not_found -> "free to use"
 			      in
-			      Printf.fprintf oc "Proposition '%s' in theory has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\n (This can be changed prior to publication with NewRights <propname> <payaddress> [Free|None|<fraenks>].)\n" nm delta1str rstr
+			      Printf.fprintf oc "Proposition '%s' in theory has no owner.\nYou will be declared as the owner when the document is published with the following details:\nNew ownership: %s.\n (This can be changed prior to publication with NewOwner <propname> <payaddress>.)\nRights policy: %s\nThis can be changed prior to publication with\nNewRights <propname> <payaddress> [Free|None|<fraenks>]\nor\nNewTheoryRights <propname> <payaddress> [Free|None|<fraenks>]\n" nm delta1str rstr
 			    end;
 			    let bl = hlist_filter_assets_gen true true (fun a -> match a with (_,_,_,Bounty(_)) -> true | _ -> false) hl in
 			    if not (bl = []) then
@@ -1554,13 +1554,18 @@ let initialize_commands () =
 							  Hashtbl.find propownsh h
 							with Not_found -> gammap
 						      in
-						      let (gamma2p,rp) =
+						      let (gamma2pp,rpp) =
 							try
-							  Hashtbl.find proprightsh h
+							  Hashtbl.find proprightsh (false,h)
+							with Not_found -> (gamma1p,Some(0L))
+						      in
+						      let (gamma2tp,rtp) =
+							try
+							  Hashtbl.find proprightsh (true,h)
 							with Not_found -> (gamma1p,Some(0L))
 						      in
 						      let h2 = hashtag (hashopair2 (Some(thyh)) h) 33l in
-						      txoutlr := (hashval_term_addr h,(Some(gamma1p,0L,false),OwnsProp(h,gamma2p,rp)))::(hashval_term_addr h2,(Some(gamma1p,0L,false),OwnsProp(h2,gamma2p,rp)))::!txoutlr)
+						      txoutlr := (hashval_term_addr h,(Some(gamma1p,0L,false),OwnsProp(h,gamma2pp,rpp)))::(hashval_term_addr h2,(Some(gamma1p,0L,false),OwnsProp(h2,gamma2tp,rtp)))::!txoutlr)
 						    kl;
 						  let esttxbytes = 2000 + stxsize (([],!txoutlr),([],[])) in (** rough overestimate for txin and signatures at 2000 bytes **)
 						  let minfee = Int64.mul (Int64.of_int esttxbytes) !Config.defaulttxfee in
@@ -1780,6 +1785,7 @@ let initialize_commands () =
 	  else if l = "Document" then
 	    let thyid = input_token ch in
 	    let th = if thyid = "Empty" then None else Some(hexstring_hashval thyid) in
+            let addrh : (payaddr,int64) Hashtbl.t = Hashtbl.create 10 in
 	    let (blkh,lr,tr,sr) =
 	      match get_bestblock_print_warnings oc with
 	      | None -> raise Not_found
@@ -1845,6 +1851,7 @@ let initialize_commands () =
 				      let al = ref [(markerid,bday,obl,Marker)] in
 				      let txinlr = ref [(beta,markerid)] in
 				      let txoutlr = ref [(delta,(None,DocPublication(gammap,nonce,th,dl)))] in
+                                      let revisituses = ref [] in
 				      let usesobjs = doc_uses_objs dl in
 				      let usesprops = doc_uses_props dl in
 				      let createsobjs = doc_creates_objs dl in
@@ -1879,24 +1886,17 @@ let initialize_commands () =
 					    match r with
 					    | None -> raise (Failure (Printf.sprintf "No right to use theory object '%s' %s. It must be redefined." (oname oidpure) (hashval_hexstring oidthy)))
 					    | Some(i) when i > 0L -> (*** look for owned rights; if not increase 'tospend' to buy the rights ***)
-						begin
-						  try
-						    let (alpha,a) = Hashtbl.find objrightsassets oidthy in
-						    match a with
-						    | (aid,bday,obl,RightsObj(h,r)) ->
-							if r > 0L then
-							  begin
-							    al := a::!al;
-							    txinlr := (alpha,aid)::!txinlr;
-							    if r > 1L then
-							      txoutlr := (alpha,(obl,RightsObj(h,Int64.sub r 1L)))::!txoutlr
-							  end
-							else
-							  raise Not_found
-						    | _ -> raise Not_found
-						  with Not_found ->
-						    tospend := Int64.add !tospend i
-						end
+					       begin
+                                                 revisituses := (false,oidthy,beta,i)::!revisituses;
+                                                 if Hashtbl.mem objrightsassets oidthy then
+                                                   begin
+                                                     try
+                                                       let i2 = Hashtbl.find addrh beta in
+                                                       if i > i2 then Hashtbl.replace addrh beta i
+                                                     with Not_found ->
+                                                       Hashtbl.add addrh beta i
+                                                   end
+                                               end
 					    | _ -> ()
 					  end;
 					  begin
@@ -1907,24 +1907,17 @@ let initialize_commands () =
 						match r with
 						| None -> raise (Failure (Printf.sprintf "No right to use pure object '%s' %s. It must be redefined." (oname oidpure) (hashval_hexstring oidpure)))
 						| Some(i) when i > 0L -> (*** look for owned rights; if not increase 'tospend' to buy the rights ***)
-						    begin
-						      try
-							let (alpha,a) = Hashtbl.find objrightsassets oidpure in
-							match a with
-							| (aid,bday,obl,RightsObj(h,r)) ->
-							    if r > 0L then
-							      begin
-								al := a::!al;
-								txinlr := (alpha,aid)::!txinlr;
-								if r > 1L then
-								  txoutlr := (alpha,(obl,RightsObj(h,Int64.sub r 1L)))::!txoutlr
-							      end
-							    else
-							      raise Not_found
-							| _ -> raise Not_found
-						      with Not_found ->
-							tospend := Int64.add !tospend i
-						    end
+					           begin
+                                                     revisituses := (false,oidpure,beta,i)::!revisituses;
+                                                     if Hashtbl.mem objrightsassets oidpure then
+                                                       begin
+                                                         try
+                                                           let i2 = Hashtbl.find addrh beta in
+                                                           if i > i2 then Hashtbl.replace addrh beta i
+                                                         with Not_found ->
+                                                           Hashtbl.add addrh beta i
+                                                       end
+                                                   end
 						| _ -> ()
 					  end)
 					usesobjs;
@@ -1939,22 +1932,15 @@ let initialize_commands () =
 					    | None -> raise (Failure (Printf.sprintf "No right to use theory proposition '%s' %s. It must be redefined." (pname pidpure) (hashval_hexstring pidthy)))
 					    | Some(i) when i > 0L -> (*** look for owned rights; if not increase 'tospend' to buy the rights ***)
 						begin
-						  try
-						    let (alpha,a) = Hashtbl.find proprightsassets pidthy in
-						    match a with
-						    | (aid,bday,obl,RightsProp(h,r)) ->
-							if r > 0L then
-							  begin
-							    al := a::!al;
-							    txinlr := (alpha,aid)::!txinlr;
-							    if r > 1L then
-							      txoutlr := (alpha,(obl,RightsProp(h,Int64.sub r 1L)))::!txoutlr
-							  end
-							else
-							  raise Not_found
-						    | _ -> raise Not_found
-						  with Not_found ->
-						    tospend := Int64.add !tospend i
+                                                  revisituses := (true,pidthy,beta,i)::!revisituses;
+                                                  if Hashtbl.mem proprightsassets pidthy then
+                                                    begin
+						      try
+                                                        let i2 = Hashtbl.find addrh beta in
+                                                        if i > i2 then Hashtbl.replace addrh beta i
+                                                      with Not_found ->
+                                                        Hashtbl.add addrh beta i
+                                                    end
 						end
 					    | _ -> ()
 					  end;
@@ -1966,27 +1952,57 @@ let initialize_commands () =
 						match r with
 						| None -> raise (Failure (Printf.sprintf "No right to use pure proposition '%s' %s. It must be redefined." (pname pidpure) (hashval_hexstring pidpure)))
 						| Some(i) when i > 0L -> (*** look for owned rights; if not increase 'tospend' to buy the rights ***)
-						    begin
-						      try
-							let (alpha,a) = Hashtbl.find proprightsassets pidpure in
-							match a with
-							| (aid,bday,obl,RightsProp(h,r)) ->
-							    if r > 0L then
-							      begin
-								al := a::!al;
-								txinlr := (alpha,aid)::!txinlr;
-								if r > 1L then
-								  txoutlr := (alpha,(obl,RightsProp(h,Int64.sub r 1L)))::!txoutlr
-							      end
-							    else
-							      raise Not_found
-							| _ -> raise Not_found
-						      with Not_found ->
-							tospend := Int64.add !tospend i
-						    end
+						   begin
+                                                     revisituses := (true,pidpure,beta,i)::!revisituses;
+                                                     if Hashtbl.mem proprightsassets pidpure then
+                                                       begin
+						         try
+                                                           let i2 = Hashtbl.find addrh beta in
+                                                           if i > i2 then Hashtbl.replace addrh beta i
+                                                         with Not_found ->
+                                                           Hashtbl.add addrh beta i
+                                                       end
+						   end
 						| _ -> ()
 					  end)
 					usesprops;
+                                      Hashtbl.iter
+                                        (fun beta m ->
+                                          tospend := Int64.add !tospend m;
+                                          txoutlr := (payaddr_addr beta,(None,Currency(m)))::!txoutlr)
+                                        addrh;
+                                      List.iter
+                                        (fun (b1,h1,beta1,i1) ->
+                                          try
+                                            let i2 = Hashtbl.find addrh beta1 in
+                                            if i2 < i1 then raise Not_found;
+                                          with Not_found ->
+                                            try
+                                              let (alpha,a) = Hashtbl.find (if b1 then proprightsassets else objrightsassets) h1 in
+					      match a with
+					      | (aid,bday,obl,RightsObj(h,r)) when not b1 ->
+						 if r > 0L then
+						   begin
+						     al := a::!al;
+						     txinlr := (alpha,aid)::!txinlr;
+                                                     if r > 1L then txoutlr := (alpha,(obl,RightsObj(h,Int64.sub r 1L)))::!txoutlr;
+                                                   end
+                                                 else
+                                                   raise Not_found
+					      | (aid,bday,obl,RightsProp(h,r)) when b1 ->
+						 if r > 0L then
+						   begin
+						     al := a::!al;
+						     txinlr := (alpha,aid)::!txinlr;
+                                                     if r > 1L then txoutlr := (alpha,(obl,RightsProp(h,Int64.sub r 1L)))::!txoutlr;
+                                                   end
+                                                 else
+                                                   raise Not_found
+                                              | _ ->
+                                                 raise Not_found
+                                            with Not_found ->
+                                              raise (Failure (Printf.sprintf "Problem obtaining rights for %s" (hashval_hexstring h1))))
+                                        !revisituses;
 				      List.iter
 					(fun (h,k) ->
 					  let oidpure = h in
@@ -1999,7 +2015,7 @@ let initialize_commands () =
 					    | Some(_) -> ()
 					    | None ->
 						let delta1 = try Hashtbl.find objownsh oidpure with Not_found -> gammap in
-						let (delta2,r) = try Hashtbl.find objrightsh oidpure with Not_found -> (gammap,Some(0L)) in
+						let (delta2,r) = try Hashtbl.find objrightsh (false,oidpure) with Not_found -> (gammap,Some(0L)) in
 						txoutlr := (alphapure,(Some(delta1,0L,false),OwnsObj(oidpure,delta2,r)))::!txoutlr
 					  end;
 					  let hl = ctree_lookup_addr_assets true true (CHash(lr)) (addr_bitseq alphathy) in
@@ -2008,7 +2024,7 @@ let initialize_commands () =
 					    | Some(_) -> ()
 					    | None ->
 						let delta1 = try Hashtbl.find objownsh oidpure with Not_found -> gammap in
-						let (delta2,r) = try Hashtbl.find objrightsh oidpure with Not_found -> (gammap,Some(0L)) in
+						let (delta2,r) = try Hashtbl.find objrightsh (true,oidpure) with Not_found -> (gammap,Some(0L)) in
 						txoutlr := (alphathy,(Some(delta1,0L,false),OwnsObj(oidthy,delta2,r)))::!txoutlr
 					  end)
 					createsobjs;
@@ -2023,7 +2039,7 @@ let initialize_commands () =
 					    | Some(_) -> ()
 					    | None ->
 						let delta1 = try Hashtbl.find propownsh pidpure with Not_found -> gammap in
-						let (delta2,r) = try Hashtbl.find proprightsh pidpure with Not_found -> (gammap,Some(0L)) in
+						let (delta2,r) = try Hashtbl.find proprightsh (false,pidpure) with Not_found -> (gammap,Some(0L)) in
 						txoutlr := (alphapure,(Some(delta1,0L,false),OwnsProp(pidpure,delta2,r)))::!txoutlr
 					  end;
 					  let hl = ctree_lookup_addr_assets true true (CHash(lr)) (addr_bitseq alphathy) in
@@ -2032,7 +2048,7 @@ let initialize_commands () =
 					    | Some(_) -> ()
 					    | None ->
 						let delta1 = try Hashtbl.find propownsh pidpure with Not_found -> gammap in
-						let (delta2,r) = try Hashtbl.find proprightsh pidpure with Not_found -> (gammap,Some(0L)) in
+						let (delta2,r) = try Hashtbl.find proprightsh (true,pidpure) with Not_found -> (gammap,Some(0L)) in
 						txoutlr := (alphathy,(Some(delta1,0L,false),OwnsProp(pidthy,delta2,r)))::!txoutlr
 					  end)
 					createsprops;
@@ -2084,6 +2100,118 @@ let initialize_commands () =
 	      close_in ch;
 	      raise (Failure (Printf.sprintf "Draft file has incorrect header: %s" l))
 	    end
+      | _ -> raise BadCommandForm);
+  ac "createbuyrightstx" "createbuyrightstx <payaddr> <num of rights> <id> ... <id>" "Create tx to buy rights for objects and/or propositions to be held at the given pay address."
+    (fun oc al ->
+      match al with
+      | (beta::n::idl0) ->
+         begin
+           let beta = daliladdrstr_addr beta in
+           if not (payaddr_p beta) then raise BadCommandForm;
+           let addrh : (payaddr,int64) Hashtbl.t = Hashtbl.create 10 in
+           let n = Int64.of_string n in
+           let idaddrl =
+             List.map
+               (fun h ->
+                 let id1 = hexstring_hashval h in
+                 let alpha1 = hashval_term_addr id1 in
+                 (id1,alpha1))
+               idl0
+           in
+           match get_bestblock_print_warnings oc with
+           | None -> Printf.fprintf oc "No blocks yet\n"
+           | Some(h,lbk,ltx) ->
+	      let (_,_,_,_,_,blkh) = Hashtbl.find outlinevals (lbk,ltx) in
+	      let (_,_,lr,_,_) = Hashtbl.find validheadervals (lbk,ltx) in
+              List.iter
+                (fun (id1,alpha1) ->
+                  let hl = ctree_lookup_addr_assets true true (CHash(lr)) (addr_bitseq alpha1) in
+                  let al2 =
+                    hlist_filter_assets_gen true true
+                      (fun a ->
+                        match a with
+                        | (_,_,_,OwnsObj(id2,_,Some(r))) when r > 0L && id2 = id1 -> true
+                        | (_,_,_,OwnsProp(id2,_,Some(r))) when r > 0L && id2 = id1 -> true
+                        | _ -> false)
+                      hl
+                  in
+                  List.iter
+                    (fun a ->
+                      match a with
+                      | (_,_,_,OwnsObj(id2,gamma,Some(r))) ->
+                         let rn = Int64.mul r n in
+                         begin
+                           try
+                             let m = Hashtbl.find addrh gamma in
+                             if rn > m then Hashtbl.replace addrh gamma rn
+                           with Not_found ->
+                             Hashtbl.add addrh gamma rn
+                         end
+                      | (_,_,_,OwnsProp(id2,gamma,Some(r))) ->
+                         let rn = Int64.mul r n in
+                         begin
+                           try
+                             let m = Hashtbl.find addrh gamma in
+                             if rn > m then Hashtbl.replace addrh gamma rn
+                           with Not_found ->
+                             Hashtbl.add addrh gamma rn
+                         end
+                      | _ -> ())
+                    al2)
+                idaddrl;
+              let tospend = ref 0L in
+              let txoutlr = ref [] in
+              Hashtbl.iter
+                (fun gamma m ->
+                  tospend := Int64.add !tospend m;
+                  txoutlr := (payaddr_addr gamma,(None,Currency(m)))::!txoutlr)
+                addrh;
+              List.iter
+                (fun (id1,alpha1) ->
+                  let hl = ctree_lookup_addr_assets true true (CHash(lr)) (addr_bitseq alpha1) in
+                  let al2 =
+                    hlist_filter_assets_gen true true
+                      (fun a ->
+                        match a with
+                        | (_,_,_,OwnsObj(id2,_,Some(r))) when r > 0L && id2 = id1 -> true
+                        | (_,_,_,OwnsProp(id2,_,Some(r))) when r > 0L && id2 = id1 -> true
+                        | _ -> false)
+                      hl
+                  in
+                  List.iter
+                    (fun a ->
+                      match a with
+                      | (_,_,_,OwnsObj(id2,gamma,Some(r))) ->
+                         begin
+                           try
+                             let m = Hashtbl.find addrh gamma in
+                             let n2 = Int64.div m r in
+                             txoutlr := (beta,(None,RightsObj(id2,n2)))::!txoutlr
+                           with Not_found -> ()
+                         end
+                      | (_,_,_,OwnsProp(id2,gamma,Some(r))) ->
+                         begin
+                           try
+                             let m = Hashtbl.find addrh gamma in
+                             let n2 = Int64.div m r in
+                             txoutlr := (beta,(None,RightsProp(id2,n2)))::!txoutlr
+                           with Not_found -> ()
+                         end
+                      | _ -> ())
+                    al2)
+                idaddrl;
+              let esttxbytes = 2000 + 200 * List.length !txoutlr in
+              let minfee = Int64.mul (Int64.of_int esttxbytes) !Config.defaulttxfee in
+              tospend := Int64.add !tospend minfee;
+	      let (alpha,(aid,_,_,_),v) = find_spendable_utxo oc lr blkh !tospend in
+	      let tauin = [(alpha,aid)] in
+	      let tauout = if Int64.sub v !tospend > 10000L then (alpha,(None,Currency(Int64.sub v !tospend)))::!txoutlr else !txoutlr in
+              let stau = ((tauin,tauout),([],[])) in
+	      let s = Buffer.create 100 in
+	      seosbf (seo_stx seosb stau (s,None));
+              let hs = Hashaux.string_hexstring (Buffer.contents s) in
+	      Printf.fprintf oc "%s\n" hs
+         end
       | _ -> raise BadCommandForm);
   ac "missing" "missing" "Report current list of missing headers/deltas"
     (fun oc al ->

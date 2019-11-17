@@ -184,7 +184,7 @@ let input_theoryspec ch =
   let proph : (string,hashval) Hashtbl.t = Hashtbl.create 100 in
   let prophrev : (hashval,string) Hashtbl.t = Hashtbl.create 100 in
   let propownsh : (hashval,payaddr) Hashtbl.t = Hashtbl.create 100 in
-  let proprightsh : (hashval,payaddr * (int64 option)) Hashtbl.t = Hashtbl.create 100 in
+  let proprightsh : (bool * hashval,payaddr * (int64 option)) Hashtbl.t = Hashtbl.create 100 in
   let thyspec = ref [] in
   let nonce = ref None in
   let gamma = ref None in
@@ -252,7 +252,70 @@ let input_theoryspec ch =
 		begin
 		  try
 		    let h = Hashtbl.find proph nm in
-		    Hashtbl.add proprightsh h (gammap,price);
+		    Hashtbl.add proprightsh (false,h) (gammap,price);
+		    Hashtbl.add proprightsh (true,h) (gammap,price);
+		  with Not_found ->
+		    if Hashtbl.mem trmh nm then
+		      raise (Failure (Printf.sprintf "Only axioms of the theory are given owners initially, so cannot assign rights for %s." nm))
+		    else
+		      raise (Failure (Printf.sprintf "Unknown axiom %s to give rights for" nm))
+		end
+	      end
+	    else
+	      raise (Failure (Printf.sprintf "%s cannot be an address for rights since it is not a pay address" gammas)))
+      else if l = "NewPureRights" then
+	pr l
+	  (fun () ->
+	    let nm = input_token ch in
+	    let gammas = input_token ch in
+	    let gamma = daliladdrstr_addr gammas in
+	    if payaddr_p gamma then
+	      let gammap = let (i,x0,x1,x2,x3,x4) = gamma in (i = 1,x0,x1,x2,x3,x4) in
+	      begin
+		let price = input_token ch in
+		let price =
+		  if price = "Free" then
+		    Some(0L)
+		  else if price = "None" then
+		    None
+		  else
+		    Some(cants_of_fraenks price)
+		in
+		begin
+		  try
+		    let h = Hashtbl.find proph nm in
+		    Hashtbl.add proprightsh (false,h) (gammap,price);
+		  with Not_found ->
+		    if Hashtbl.mem trmh nm then
+		      raise (Failure (Printf.sprintf "Only axioms of the theory are given owners initially, so cannot assign rights for %s." nm))
+		    else
+		      raise (Failure (Printf.sprintf "Unknown axiom %s to give rights for" nm))
+		end
+	      end
+	    else
+	      raise (Failure (Printf.sprintf "%s cannot be an address for rights since it is not a pay address" gammas)))
+      else if l = "NewTheoryRights" then
+	pr l
+	  (fun () ->
+	    let nm = input_token ch in
+	    let gammas = input_token ch in
+	    let gamma = daliladdrstr_addr gammas in
+	    if payaddr_p gamma then
+	      let gammap = let (i,x0,x1,x2,x3,x4) = gamma in (i = 1,x0,x1,x2,x3,x4) in
+	      begin
+		let price = input_token ch in
+		let price =
+		  if price = "Free" then
+		    Some(0L)
+		  else if price = "None" then
+		    None
+		  else
+		    Some(cants_of_fraenks price)
+		in
+		begin
+		  try
+		    let h = Hashtbl.find proph nm in
+		    Hashtbl.add proprightsh (true,h) (gammap,price);
 		  with Not_found ->
 		    if Hashtbl.mem trmh nm then
 		      raise (Failure (Printf.sprintf "Only axioms of the theory are given owners initially, so cannot assign rights for %s." nm))
@@ -482,9 +545,9 @@ let input_doc ch th sgt =
   let conjh : (string,hashval) Hashtbl.t = Hashtbl.create 100 in
   let thmh : (string,hashval) Hashtbl.t = Hashtbl.create 100 in
   let objownsh : (hashval,payaddr) Hashtbl.t = Hashtbl.create 100 in
-  let objrightsh : (hashval,payaddr * (int64 option)) Hashtbl.t = Hashtbl.create 100 in
+  let objrightsh : (bool * hashval,payaddr * (int64 option)) Hashtbl.t = Hashtbl.create 100 in
   let propownsh : (hashval,payaddr) Hashtbl.t = Hashtbl.create 100 in
-  let proprightsh : (hashval,payaddr * (int64 option)) Hashtbl.t = Hashtbl.create 100 in
+  let proprightsh : (bool * hashval,payaddr * (int64 option)) Hashtbl.t = Hashtbl.create 100 in
   let bountyh : (hashval,int64 * (payaddr * int64) option) Hashtbl.t = Hashtbl.create 100 in
   let doc = ref [] in
   let nonce = ref None in
@@ -567,11 +630,79 @@ let input_doc ch th sgt =
 		begin
 		  try
 		    let h = Hashtbl.find thmh nm in
-		    Hashtbl.add proprightsh h (gammap,price)
+		    Hashtbl.add proprightsh (false,h) (gammap,price);
+		    Hashtbl.add proprightsh (true,h) (gammap,price)
 		  with Not_found ->
 		    try
 		      let h = Hashtbl.find defh nm in
-		      Hashtbl.add objrightsh h (gammap,price)
+		      Hashtbl.add objrightsh (false,h) (gammap,price);
+		      Hashtbl.add objrightsh (true,h) (gammap,price)
+		    with Not_found ->
+		      if not (Hashtbl.mem trmh nm) then
+			raise (Failure (Printf.sprintf "Unknown definition or theorem %s to give rights for" nm))
+		end
+	      end
+	    else
+	      raise (Failure (Printf.sprintf "%s cannot be an address for rights since it is not a pay address" gammas)))
+      else if l = "NewPureRights" then
+	pr l
+	  (fun () ->
+	    let nm = input_token ch in
+	    let gammas = input_token ch in
+	    let gamma = daliladdrstr_addr gammas in
+	    if payaddr_p gamma then
+	      let gammap = let (i,x0,x1,x2,x3,x4) = gamma in (i = 1,x0,x1,x2,x3,x4) in
+	      begin
+		let price = input_token ch in
+		let price =
+		  if price = "Free" then
+		    Some(0L)
+		  else if price = "None" then
+		    None
+		  else
+		    Some(cants_of_fraenks price)
+		in
+		begin
+		  try
+		    let h = Hashtbl.find thmh nm in
+		    Hashtbl.add proprightsh (false,h) (gammap,price)
+		  with Not_found ->
+		    try
+		      let h = Hashtbl.find defh nm in
+		      Hashtbl.add objrightsh (false,h) (gammap,price)
+		    with Not_found ->
+		      if not (Hashtbl.mem trmh nm) then
+			raise (Failure (Printf.sprintf "Unknown definition or theorem %s to give rights for" nm))
+		end
+	      end
+	    else
+	      raise (Failure (Printf.sprintf "%s cannot be an address for rights since it is not a pay address" gammas)))
+      else if l = "NewTheoryRights" then
+	pr l
+	  (fun () ->
+	    let nm = input_token ch in
+	    let gammas = input_token ch in
+	    let gamma = daliladdrstr_addr gammas in
+	    if payaddr_p gamma then
+	      let gammap = let (i,x0,x1,x2,x3,x4) = gamma in (i = 1,x0,x1,x2,x3,x4) in
+	      begin
+		let price = input_token ch in
+		let price =
+		  if price = "Free" then
+		    Some(0L)
+		  else if price = "None" then
+		    None
+		  else
+		    Some(cants_of_fraenks price)
+		in
+		begin
+		  try
+		    let h = Hashtbl.find thmh nm in
+		    Hashtbl.add proprightsh (true,h) (gammap,price)
+		  with Not_found ->
+		    try
+		      let h = Hashtbl.find defh nm in
+		      Hashtbl.add objrightsh (true,h) (gammap,price)
 		    with Not_found ->
 		      if not (Hashtbl.mem trmh nm) then
 			raise (Failure (Printf.sprintf "Unknown definition or theorem %s to give rights for" nm))
