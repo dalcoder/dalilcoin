@@ -1,9 +1,9 @@
 (* Copyright (c) 2015-2016 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
+open Zarithint
 open Json
 open Ser
 open Sha256
@@ -218,7 +218,7 @@ let opmax b1 b2 =
   | (_,None) -> b1
   | _ -> b2
 
-let check_spend_obligation_upto_blkh obday alpha (txhe:big_int) s obl =
+let check_spend_obligation_upto_blkh obday alpha (txhe:Z.t) s obl =
   match obl with
   | None -> (*** defaults to alpha with no block height restriction ***)
       let (b,mbh,mtm) = verify_gensignat obday txhe s alpha in
@@ -233,7 +233,7 @@ let check_spend_obligation_upto_blkh obday alpha (txhe:big_int) s obl =
       else
 	raise BadOrMissingSignature
 
-let check_spend_obligation obday alpha blkh tm (txhe:big_int) s obl =
+let check_spend_obligation obday alpha blkh tm (txhe:Z.t) s obl =
   try
     let (b,mbh,mtm) = check_spend_obligation_upto_blkh obday alpha txhe s obl in
     if b then

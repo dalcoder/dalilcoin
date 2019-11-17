@@ -1,9 +1,7 @@
 (* Copyright (c) 2015 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
-
-open Big_int
 
 type seosbt = Buffer.t * (int * int) option
 type seist = string * int * int option * int * int
@@ -33,8 +31,8 @@ val sei_int32 : (int -> 'a -> int * 'a) -> 'a -> int32 * 'a
 val seo_int64 : (int -> int -> 'a -> 'a) -> int64 -> 'a -> 'a
 val sei_int64 : (int -> 'a -> int * 'a) -> 'a -> int64 * 'a
 
-val seo_big_int_256 : (int -> int -> 'a -> 'a) -> big_int -> 'a -> 'a
-val sei_big_int_256 : (int -> 'a -> int * 'a) -> 'a -> big_int * 'a
+val seo_big_int_256 : (int -> int -> 'a -> 'a) -> Z.t -> 'a -> 'a
+val sei_big_int_256 : (int -> 'a -> int * 'a) -> 'a -> Z.t * 'a
 
 val seo_varint : (int -> int -> 'a -> 'a) -> int64 -> 'a -> 'a
 val sei_varint : (int -> 'a -> int * 'a) -> 'a -> int64 * 'a

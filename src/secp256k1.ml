@@ -1,5 +1,5 @@
 (* Copyright (c) 2015 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
@@ -10,14 +10,17 @@ open Ser
 (* Code for the Elliptic Curve secp256k1 *)
 (* https://en.bitcoin.it/wiki/Secp256k1 *)
 
-(* Use the Big_int library for arbitrary-precision integers. *)
-open Big_int
-
+open Zarithint
+   
 let big2 = big_int_of_string "2"
 let big3 = big_int_of_string "3"
 
+(*
 let evenp k = eq_big_int (mod_big_int k big2) zero_big_int
 let oddp k = eq_big_int (mod_big_int k big2) unit_big_int
+ *)
+let evenp k = Z.is_even k
+let oddp k = Z.is_odd k
 
 (* _p : the 256 bit int prime in secp256k1 *)
 let _p = big_int_of_string "115792089237316195423570985008687907853269984665640564039457584007908834671663"
@@ -71,7 +74,7 @@ let inv x = inv_mod x _p
 
 (* Intended to be points on the curve y^2 = x^3 + 7 *)
 (* None is used for the zero point/point at infinity *)
-type pt = (big_int * big_int) option
+type pt = (Z.t * Z.t) option
 
 (* Addition for points on the elliptic curve *)
 (* Simplified from the general case using the fact that a is 0 *)
@@ -99,7 +102,7 @@ let addp p q =
   end
 
 (* Scalar multiplication *)
-(* k : big_int *)
+(* k : Z.t *)
 (* p : point p on the curve *)
 (* return point k*p as a point *)
 let rec smulp k p =

@@ -3,7 +3,6 @@
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
 open Utils
 open Ser
 open Hashaux
@@ -33,7 +32,7 @@ let shutdown_close s =
     Typically there will be only one such burn, but this cannot be enforced.
  **)
 let outlinevals : (hashval * hashval,hashval * int64 * int64 * (hashval * hashval) option * hashval * int64) Hashtbl.t = Hashtbl.create 10000
-let validheadervals : (hashval * hashval,big_int * int64 * hashval * hashval option * hashval option) Hashtbl.t = Hashtbl.create 10000
+let validheadervals : (hashval * hashval,Z.t * int64 * hashval * hashval option * hashval option) Hashtbl.t = Hashtbl.create 10000
 let validblockvals : (hashval * hashval,unit)  Hashtbl.t = Hashtbl.create 10000
 let outlinesucc : (hashval * hashval,hashval * hashval) Hashtbl.t = Hashtbl.create 10000
 let blockburns : (hashval,hashval * hashval) Hashtbl.t = Hashtbl.create 10000
@@ -80,7 +79,7 @@ let msgtype_of_int i =
        GetCTreeElement;GetHConsElement;GetAsset;CTreeElement;HConsElement;Asset;GetInvNbhd;
        GetElementsBelow;CompleteCTree;CompleteHList]
       i
-  with Failure("nth") -> raise Not_found
+  with Failure(_) -> raise Not_found
 
 let int_of_msgtype mt =
   match mt with

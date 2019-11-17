@@ -1,8 +1,6 @@
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
-
-open Big_int
 
 type jsonval =
   | JsonStr of string
@@ -23,5 +21,5 @@ val bool_from_json : jsonval -> bool
 val int_from_json : jsonval -> int
 val int32_from_json : jsonval -> int32
 val int64_from_json : jsonval -> int64
-val big_int_from_json : jsonval -> big_int
+val big_int_from_json : jsonval -> Z.t
 

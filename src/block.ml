@@ -9,7 +9,7 @@ open Ripemd160
 open Hash
 open Net
 open Db
-open Big_int
+open Zarithint
 open Logic
 open Mathdata
 open Assets
@@ -70,7 +70,7 @@ let hitval tm h sm =
   md256_big_int d
 
 (*** target (big_int, but assumed to be at most 256 bits ***)
-type targetinfo = big_int
+type targetinfo = Z.t
 
 let targetinfo_string tar = string_of_big_int tar
 

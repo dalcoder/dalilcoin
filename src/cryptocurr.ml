@@ -5,7 +5,7 @@
 
 (* Most of this code is taken directly from Egal. *)
 
-open Big_int
+open Zarithint
 open Json
 open Ser
 open Hashaux

@@ -1,11 +1,10 @@
 (* Copyright (c) 2015-2016 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
 open Sha256
 open Hash
-open Big_int
 open Mathdata
 open Logic
 open Assets
@@ -24,10 +23,10 @@ val sei_poburn : (int -> 'a -> int * 'a) -> 'a -> poburn * 'a
 type stakemod = hashval
 val genesisstakemod : stakemod ref
 val genesisledgerroot : hashval ref
-val genesistarget : big_int ref
-val max_target : big_int ref
+val genesistarget : Z.t ref
+val max_target : Z.t ref
 
-type targetinfo = big_int
+type targetinfo = Z.t
 
 val targetinfo_string : targetinfo -> string
 
@@ -35,7 +34,7 @@ val seo_targetinfo : (int -> int -> 'a -> 'a) -> targetinfo -> 'a -> 'a
 val sei_targetinfo : (int -> 'a -> int * 'a) -> 'a -> targetinfo * 'a
 
 val rewfn : int64 -> int64
-val hitval : int64 -> hashval -> stakemod -> big_int
+val hitval : int64 -> hashval -> stakemod -> Z.t
 
 val poburn_stakemod : poburn -> stakemod
 
@@ -119,7 +118,7 @@ val get_blockdelta : hashval -> blockdelta
 val coinstake : block -> tx
 
 val check_hit_b : int64 -> int64 -> obligation -> int64
-  -> stakemod -> big_int -> int64 -> hashval -> p2pkhaddr -> int64 -> bool
+  -> stakemod -> Z.t -> int64 -> hashval -> p2pkhaddr -> int64 -> bool
 val check_hit : int64 -> stakemod -> targetinfo -> blockheaderdata -> int64 -> obligation -> int64 -> int64 -> bool
 
 val hash_blockheaderdata : blockheaderdata -> hashval
@@ -142,8 +141,8 @@ val ctree_of_block : block -> ctree
 
 val txl_of_block : block -> tx * tx list
 
-val retarget : int64 -> big_int -> int32 -> big_int
-val difficulty : big_int -> big_int
+val retarget : int64 -> Z.t -> int32 -> Z.t
+val difficulty : Z.t -> Z.t
 
 val valid_block : ttree option -> stree option -> int64 -> stakemod -> targetinfo -> block -> int64 -> int64 -> (ttree option * stree option) option
 

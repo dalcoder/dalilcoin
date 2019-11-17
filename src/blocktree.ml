@@ -3,7 +3,7 @@
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
+open Zarithint
 open Utils
 open Ser
 open Hashaux
@@ -31,8 +31,8 @@ let artificialbestblock = ref None;;
 let recentheaders : (hashval,unit) Hashtbl.t = Hashtbl.create 1000;;
 let blockinvalidated : (hashval,unit) Hashtbl.t = Hashtbl.create 1000;;
 
-let delayed_headers : (hashval * hashval,big_int -> unit) Hashtbl.t = Hashtbl.create 100;;
-let delayed_deltas : (hashval * hashval,hashval option -> hashval option -> big_int -> unit) Hashtbl.t = Hashtbl.create 100;;
+let delayed_headers : (hashval * hashval,Z.t -> unit) Hashtbl.t = Hashtbl.create 100;;
+let delayed_deltas : (hashval * hashval,hashval option -> hashval option -> Z.t -> unit) Hashtbl.t = Hashtbl.create 100;;
 
 let thytree : (hashval,ttree) Hashtbl.t = Hashtbl.create 1000;;
 let sigtree : (hashval,stree) Hashtbl.t = Hashtbl.create 1000;;

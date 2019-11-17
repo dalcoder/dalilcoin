@@ -1,9 +1,8 @@
 (* Copyright (c) 2015-2016 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
 open Json
 open Hash
 open Db
@@ -20,8 +19,8 @@ val datadir : unit -> string
 val reward_maturation : int64
 val reward_locktime : int64
 
-val coinagefactor : int64 -> int64 -> obligation -> big_int
-val coinage : int64 -> int64 -> obligation -> int64 -> big_int
+val coinagefactor : int64 -> int64 -> obligation -> Z.t
+val coinage : int64 -> int64 -> obligation -> int64 -> Z.t
 
 type hlist = HHash of hashval * int | HNil | HCons of asset * hlist | HConsH of hashval * hlist
 

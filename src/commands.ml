@@ -4,7 +4,7 @@
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
 open Json
-open Big_int
+open Zarithint
 open Config
 open Hashaux
 open Ser
