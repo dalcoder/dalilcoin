@@ -235,6 +235,7 @@ let process_header sout validate forw dbp (lbh,ltxh) h (bhd,bhs) currhght csm ta
       if valid_blockheader currhght csm tar (bhd,bhs) lmedtm burned then
 	begin
 	  Hashtbl.add validheadervals (lbh,ltxh) (bhd.tinfo,bhd.timestamp,bhd.newledgerroot,bhd.newtheoryroot,bhd.newsignaroot);
+          broadcast_inv [(int_of_msgtype Headers,h)];
 	  if not (DbBlockDelta.dbexists h) then missingdeltas := List.merge (fun (i,_) (j,_) -> compare i j) [(currhght,h)] !missingdeltas;
 	  if dbp then
 	    begin
@@ -298,6 +299,7 @@ let rec process_delta sout validate forw dbp (lbh,ltxh) h ((bhd,bhs),bd) thtr th
 	  update_theories thtr tht newtht;
 	  update_signatures sgtr sgt newsigt;
 	  process_delta_ctree h currhght ((bhd,bhs),bd);
+          broadcast_inv [(int_of_msgtype Blockdelta,h)];
 	  if dbp then
 	    begin
 	      DbBlockDelta.dbput h bd;
