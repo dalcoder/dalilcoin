@@ -235,6 +235,7 @@ let process_header sout validate forw dbp (lbh,ltxh) h (bhd,bhs) currhght csm ta
       if valid_blockheader currhght csm tar (bhd,bhs) lmedtm burned then
 	begin
 	  Hashtbl.add validheadervals (lbh,ltxh) (bhd.tinfo,bhd.timestamp,bhd.newledgerroot,bhd.newtheoryroot,bhd.newsignaroot);
+          broadcast_inv [(int_of_msgtype Headers,h)];
 	  if not (DbBlockDelta.dbexists h) then missingdeltas := List.merge (fun (i,_) (j,_) -> compare i j) [(currhght,h)] !missingdeltas;
 	  if dbp then
 	    begin
@@ -298,6 +299,7 @@ let rec process_delta sout validate forw dbp (lbh,ltxh) h ((bhd,bhs),bd) thtr th
 	  update_theories thtr tht newtht;
 	  update_signatures sgtr sgt newsigt;
 	  process_delta_ctree h currhght ((bhd,bhs),bd);
+          broadcast_inv [(int_of_msgtype Blockdelta,h)];
 	  if dbp then
 	    begin
 	      DbBlockDelta.dbput h bd;
@@ -335,7 +337,7 @@ let rec process_block sout validate forw dbp (lbh,ltxh) h ((bhd,bhs),bd) thtr th
       | Some(newtht,newsigt) ->
 	  Hashtbl.add validheadervals (lbh,ltxh) (bhd.tinfo,bhd.timestamp,bhd.newledgerroot,bhd.newtheoryroot,bhd.newsignaroot);
 	  Hashtbl.add validblockvals (lbh,ltxh) ();
-         broadcast_inv [(int_of_msgtype Headers,h);(int_of_msgtype Blockdelta,h)];
+          broadcast_inv [(int_of_msgtype Headers,h);(int_of_msgtype Blockdelta,h)];
 	  sync_last_height := max !sync_last_height currhght;
 	  update_theories thtr tht newtht;
 	  update_signatures sgtr sgt newsigt;
@@ -1106,7 +1108,7 @@ Hashtbl.add msgtype_handler STx
 				    log_string (Printf.sprintf "Accepting tx %s into pool\n" (hashval_hexstring h));
 				    add_to_txpool h stau;
 				    savetxtopool_real h stau;
-                                   broadcast_inv [(int_of_msgtype STx,h)];
+                                    broadcast_inv [(int_of_msgtype STx,h)];
 				  end
 				else
 				  (log_string (Printf.sprintf "ignoring tx %s with low fee of %s fraenks (%Ld cants)\n" (hashval_hexstring h) (Cryptocurr.fraenks_of_cants fee) fee))
