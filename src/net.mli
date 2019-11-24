@@ -3,7 +3,6 @@
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
 open Hash
 
 val sync_last_height : int64 ref
@@ -24,7 +23,7 @@ val shutdown_close : Unix.file_descr -> unit
     Typically there will be only one such burn, but this cannot be enforced.
  **)
 val outlinevals : (hashval * hashval,hashval * int64 * int64 * (hashval * hashval) option * hashval * int64) Hashtbl.t
-val validheadervals : (hashval * hashval,big_int * int64 * hashval * hashval option * hashval option) Hashtbl.t
+val validheadervals : (hashval * hashval,Z.t * int64 * hashval * hashval option * hashval option) Hashtbl.t
 val validblockvals : (hashval * hashval,unit)  Hashtbl.t
 val outlinesucc : (hashval * hashval,hashval * hashval) Hashtbl.t
 val blockburns : (hashval,hashval * hashval) Hashtbl.t

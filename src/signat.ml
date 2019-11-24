@@ -1,16 +1,16 @@
 (* Copyright (c) 2015 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
+open Zarithint
 open Ser
 open Sha256
 open Hash
 open Secp256k1
 open Cryptocurr
 
-type signat = big_int * big_int
+type signat = Z.t * Z.t
 
 (*** Following code in util.cpp in bitcoin ***)
 let decode64table = [|

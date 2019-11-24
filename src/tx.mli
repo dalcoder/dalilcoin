@@ -1,9 +1,8 @@
 (* Copyright (c) 2015-2016 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
 open Json
 open Hash
 open Db
@@ -29,9 +28,9 @@ type stx = tx * txsigs
 
 exception BadOrMissingSignature
 
-val check_spend_obligation_upto_blkh : int64 option -> addr -> big_int -> gensignat -> obligation -> bool * int64 option * int64 option
-val check_spend_obligation : int64 option -> addr -> int64 -> int64 -> big_int -> gensignat -> obligation -> bool
-val check_move_obligation : addr -> big_int -> gensignat -> obligation -> preasset -> addr_preasset list -> bool
+val check_spend_obligation_upto_blkh : int64 option -> addr -> Z.t -> gensignat -> obligation -> bool * int64 option * int64 option
+val check_spend_obligation : int64 option -> addr -> int64 -> int64 -> Z.t -> gensignat -> obligation -> bool
+val check_move_obligation : addr -> Z.t -> gensignat -> obligation -> preasset -> addr_preasset list -> bool
 val tx_signatures_valid : int64 -> int64 -> asset list -> stx -> bool
 val tx_signatures_valid_asof_blkh : asset list -> stx -> int64 option * int64 option
 val estimate_required_signatures : asset list -> tx -> int

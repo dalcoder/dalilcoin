@@ -1,9 +1,8 @@
 (* Copyright (c) 2015 The Qeditas developers *)
-(* Copyright (c) 2017-2018 The Dalilcoin developers *)
+(* Copyright (c) 2017-2019 The Dalilcoin developers *)
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
 open Json
 open Sha256
 
@@ -70,8 +69,8 @@ val hashopair1 : hashval -> hashval option -> hashval
 val hashopair2 : hashval option -> hashval -> hashval
 val hashbitseq : bool list -> hashval
 
-val hashval_big_int : hashval -> big_int
-val big_int_hashval : big_int -> hashval
+val hashval_big_int : hashval -> Z.t
+val big_int_hashval : Z.t -> hashval
 
 val seo_md160 : (int -> int -> 'a -> 'a) -> md160 -> 'a -> 'a
 val sei_md160 : (int -> 'a -> int * 'a) -> 'a -> md160 * 'a

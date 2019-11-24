@@ -3,7 +3,7 @@
 (* Distributed under the MIT software license, see the accompanying
    file COPYING or http://www.opensource.org/licenses/mit-license.php. *)
 
-open Big_int
+open Zarithint
 open Json
 open Ser
 open Hashaux
@@ -199,7 +199,6 @@ let bytelist_to_pt bl =
       let (xl,yl) = next_bytes 32 br in
       let x = inum_be xl in
       let y = inum_be yl in
-      Printf.printf "x: %s\ny: %s\n" (string_of_big_int x) (string_of_big_int y);
       Some(x,y)
   | _ -> None
 
@@ -281,11 +280,11 @@ let opmax b1 b2 =
   | (_,None) -> b1
   | _ -> b2
 
-let check_p2sh obday (tosign:big_int) (beta:md160) s =
+let check_p2sh obday (tosign:Z.t) (beta:md160) s =
   let utm = Int64.of_float (Unix.time()) in
   let minblkh = ref None in
   let mintm = ref None in
-  let rec eval_script_r (tosign:big_int) bl stk altstk =
+  let rec eval_script_r (tosign:Z.t) bl stk altstk =
     match bl with
     | [] -> (stk,altstk)
     | (0::br) -> eval_script_r tosign br ([]::stk) altstk
@@ -886,7 +885,7 @@ let check_p2sh obday (tosign:big_int) (beta:md160) s =
 	      checkmultisig tosign gsgs pubkeyr
 		
 (*** check_p2sh_r is mutually recursive with checksig and checkmultisig since endorsements require scripts to be evaluated to check the signatures of endorsees ***)
-  and check_p2sh_r (tosign:big_int) (beta:md160) s =
+  and check_p2sh_r (tosign:Z.t) (beta:md160) s =
     let (stk,altstk) = eval_script_r tosign s [] [] in
     match stk with
     | [] -> false

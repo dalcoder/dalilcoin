@@ -554,6 +554,8 @@ let ltc_sendrawtransaction txs =
 
 exception NotAnLtcBurnTx
 
+let donotretrypeer : (string,unit) Hashtbl.t = Hashtbl.create 100;;
+
 let ltc_gettransactioninfo h =
   let l =
     if !Config.ltcoffline then
@@ -612,8 +614,12 @@ let ltc_gettransactioninfo h =
 					    if extradata.[i] = '.' then
 					      begin
 						let peer = Printf.sprintf "%s.onion:20808" (Buffer.contents onionaddr) in
-						ignore (tryconnectpeer peer);
-						ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                                if not (Hashtbl.mem donotretrypeer peer) then
+                                                  begin
+                                                    Hashtbl.add donotretrypeer peer ();
+                                                    ignore (tryconnectpeer peer);
+						    ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                                  end;
 						raise Exit
 					      end
 					    else if extradata.[i] = ':' then
@@ -622,8 +628,12 @@ let ltc_gettransactioninfo h =
 						  begin
 						    let port = (Char.code extradata.[i+1]) * 256 + (Char.code extradata.[i+2]) in
 						    let peer = Printf.sprintf "%s.onion:%d" (Buffer.contents onionaddr) port in
-						    ignore (tryconnectpeer peer);
-						    ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                                    if not (Hashtbl.mem donotretrypeer peer) then
+                                                      begin
+                                                        Hashtbl.add donotretrypeer peer ();
+						        ignore (tryconnectpeer peer);
+						        ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                                      end
 						  end
 						else
 						  raise Exit
@@ -643,8 +653,12 @@ let ltc_gettransactioninfo h =
 					let ip2 = Char.code extradata.[3] in
 					let ip3 = Char.code extradata.[4] in
 					let peer = Printf.sprintf "%d.%d.%d.%d:20805" ip0 ip1 ip2 ip3 in
-					ignore (tryconnectpeer peer);
-					ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                        if not (Hashtbl.mem donotretrypeer peer) then
+                                          begin
+                                            Hashtbl.add donotretrypeer peer ();
+					    ignore (tryconnectpeer peer);
+					    ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                          end
 				      end
 				  end
 				else if extradata.[0] = 'i' then
@@ -657,8 +671,12 @@ let ltc_gettransactioninfo h =
 					let ip3 = Char.code extradata.[4] in
 					let port = (Char.code extradata.[5]) * 256 + Char.code extradata.[6] in
 					let peer = Printf.sprintf "%d.%d.%d.%d:%d" ip0 ip1 ip2 ip3 port in
-					ignore (tryconnectpeer peer);
-					ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                        if not (Hashtbl.mem donotretrypeer peer) then
+                                          begin
+                                            Hashtbl.add donotretrypeer peer ();
+					    ignore (tryconnectpeer peer);
+					    ignore (addknownpeer (Int64.of_float (Unix.time())) peer);
+                                          end
 				      end
 				  end
 			    end;
