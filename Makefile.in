@@ -3,16 +3,16 @@ opt: bin/dalilcoin bin/dalilcoincli
 bytecode: bin/dalilcoinbc bin/dalilcoinbccli
 
 bin/dalilcoin: bin/dalilcoin.cmx bin/json.cmx bin/config.cmx bin/hashaux.cmx bin/sha256.cmx bin/ripemd160.cmx bin/version.cmx bin/utils.cmx bin/ser.cmx bin/hash.cmx bin/htree.cmx bin/db.cmx bin/logic.cmx bin/mathdata.cmx bin/checking.cmx bin/assets.cmx bin/tx.cmx bin/ctre.cmx bin/ctregraft.cmx bin/secp256k1.cmx bin/cryptocurr.cmx bin/signat.cmx bin/script.cmx bin/block.cmx bin/net.cmx bin/ltcrpc.cmx bin/blocktree.cmx bin/setconfig.cmx bin/commands.cmx bin/inputdraft.cmx bin/staking.cmx
-	$(OCAMLOPT) $(OCAMLOPTARGS) -I bin -I +threads -I +zarith -o bin/dalilcoin unix.cmxa threads.cmxa nums.cmxa zarith.cmxa zarithint.cmx json.cmx config.cmx version.cmx utils.cmx ser.cmx hashaux.cmx sha256.cmx ripemd160.cmx hash.cmx htree.cmx net.cmx db.cmx secp256k1.cmx cryptocurr.cmx signat.cmx script.cmx logic.cmx mathdata.cmx checking.cmx assets.cmx tx.cmx ctre.cmx ctregraft.cmx block.cmx ltcrpc.cmx blocktree.cmx setconfig.cmx commands.cmx inputdraft.cmx staking.cmx dalilcoin.cmx
+	$(OCAMLOPT) $(OCAMLOPTARGS) -I bin -I +threads -I +zarith -o bin/dalilcoin unix.cmxa threads.cmxa zarith.cmxa zarithint.cmx json.cmx config.cmx version.cmx utils.cmx ser.cmx hashaux.cmx sha256.cmx ripemd160.cmx hash.cmx htree.cmx net.cmx db.cmx secp256k1.cmx cryptocurr.cmx signat.cmx script.cmx logic.cmx mathdata.cmx checking.cmx assets.cmx tx.cmx ctre.cmx ctregraft.cmx block.cmx ltcrpc.cmx blocktree.cmx setconfig.cmx commands.cmx inputdraft.cmx staking.cmx dalilcoin.cmx
 
 bin/dalilcoincli: bin/dalilcoincli.cmx bin/zarithint.cmx bin/json.cmx bin/config.cmx bin/hashaux.cmx bin/sha256.cmx bin/ripemd160.cmx bin/version.cmx bin/utils.cmx bin/ser.cmx bin/hash.cmx bin/htree.cmx bin/db.cmx bin/logic.cmx bin/mathdata.cmx bin/checking.cmx bin/assets.cmx bin/tx.cmx bin/ctre.cmx bin/ctregraft.cmx bin/secp256k1.cmx bin/cryptocurr.cmx bin/signat.cmx bin/script.cmx bin/block.cmx bin/net.cmx bin/ltcrpc.cmx bin/blocktree.cmx bin/setconfig.cmx bin/commands.cmx bin/inputdraft.cmx bin/staking.cmx
-	$(OCAMLOPT) $(OCAMLOPTARGS) -I bin -I +threads -I +zarith -o bin/dalilcoincli unix.cmxa threads.cmxa nums.cmxa zarith.cmxa zarithint.cmx json.cmx config.cmx version.cmx utils.cmx ser.cmx hashaux.cmx sha256.cmx ripemd160.cmx hash.cmx htree.cmx net.cmx db.cmx secp256k1.cmx cryptocurr.cmx signat.cmx script.cmx logic.cmx mathdata.cmx checking.cmx assets.cmx tx.cmx ctre.cmx ctregraft.cmx block.cmx ltcrpc.cmx blocktree.cmx setconfig.cmx commands.cmx inputdraft.cmx staking.cmx dalilcoincli.cmx
+	$(OCAMLOPT) $(OCAMLOPTARGS) -I bin -I +threads -I +zarith -o bin/dalilcoincli unix.cmxa threads.cmxa zarith.cmxa zarithint.cmx json.cmx config.cmx version.cmx utils.cmx ser.cmx hashaux.cmx sha256.cmx ripemd160.cmx hash.cmx htree.cmx net.cmx db.cmx secp256k1.cmx cryptocurr.cmx signat.cmx script.cmx logic.cmx mathdata.cmx checking.cmx assets.cmx tx.cmx ctre.cmx ctregraft.cmx block.cmx ltcrpc.cmx blocktree.cmx setconfig.cmx commands.cmx inputdraft.cmx staking.cmx dalilcoincli.cmx
 
 bin/dalilcoinbc: bin/dalilcoin.cmo bin/zarithint.cmo bin/json.cmo bin/config.cmo bin/hashaux.cmo bin/sha256.cmo bin/ripemd160.cmo bin/version.cmo bin/utils.cmo bin/ser.cmo bin/hash.cmo bin/htree.cmo bin/db.cmo bin/logic.cmo bin/mathdata.cmo bin/checking.cmo bin/assets.cmo bin/tx.cmo bin/ctre.cmo bin/ctregraft.cmo bin/secp256k1.cmo bin/cryptocurr.cmo bin/signat.cmo bin/script.cmo bin/block.cmo bin/net.cmo bin/ltcrpc.cmo bin/blocktree.cmo bin/setconfig.cmo bin/commands.cmo bin/inputdraft.cmo bin/staking.cmo
-	$(OCAMLC) -I bin -I +threads -I +zarith -o bin/dalilcoinbc unix.cma threads.cma nums.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoin.cmo
+	$(OCAMLC) -I bin -I +threads -I +zarith -o bin/dalilcoinbc unix.cma threads.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoin.cmo
 
 bin/dalilcoinbccli: bin/dalilcoincli.cmo bin/zarithint.cmo bin/json.cmo bin/config.cmo bin/hashaux.cmo bin/sha256.cmo bin/ripemd160.cmo bin/version.cmo bin/utils.cmo bin/ser.cmo bin/hash.cmo bin/htree.cmo bin/db.cmo bin/logic.cmo bin/mathdata.cmo bin/checking.cmo bin/assets.cmo bin/tx.cmo bin/ctre.cmo bin/ctregraft.cmo bin/secp256k1.cmo bin/cryptocurr.cmo bin/signat.cmo bin/script.cmo bin/block.cmo bin/net.cmo bin/ltcrpc.cmo bin/blocktree.cmo bin/setconfig.cmo bin/commands.cmo bin/inputdraft.cmo bin/staking.cmo
-	$(OCAMLC) -I bin -I +threads -I +zarith -o bin/dalilcoinbccli unix.cma threads.cma nums.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoincli.cmo
+	$(OCAMLC) -I bin -I +threads -I +zarith -o bin/dalilcoinbccli unix.cma threads.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoincli.cmo
 
 bin/version.cmi: src/version.mli
 	$(OCAMLC) -I bin -o bin/version.cmi -c src/version.mli
@@ -21,28 +21,28 @@ bin/utils.cmi: src/utils.mli
 	$(OCAMLC) -I bin -o bin/utils.cmi -c src/utils.mli
 
 bin/ser.cmi: src/ser.mli bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/ser.cmi -c src/ser.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/ser.cmi -c src/ser.mli
 
 bin/zarithint.cmi: src/zarithint.mli
 	$(OCAMLC) -I bin -I +zarith -o bin/zarithint.cmi -c src/zarithint.mli
 
 bin/json.cmi: src/json.mli bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/json.cmi -c src/json.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/json.cmi -c src/json.mli
 
 bin/config.cmi: src/config.mli
 	$(OCAMLC) -I bin -o bin/config.cmi -c src/config.mli
 
 bin/hashaux.cmi: src/hashaux.mli bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/hashaux.cmi -c src/hashaux.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/hashaux.cmi -c src/hashaux.mli
 
 bin/sha256.cmi: src/sha256.mli bin/ser.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -I +threads -o bin/sha256.cmi -c src/sha256.mli
+	$(OCAMLC) -I bin -I +zarith -I +threads -o bin/sha256.cmi -c src/sha256.mli
 
 bin/ripemd160.cmi: src/ripemd160.mli bin/sha256.cmi
 	$(OCAMLC) -I bin -o bin/ripemd160.cmi -c src/ripemd160.mli
 
 bin/hash.cmi: src/hash.mli bin/sha256.cmi bin/json.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/hash.cmi -c src/hash.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/hash.cmi -c src/hash.mli
 
 bin/htree.cmi: src/htree.mli bin/hash.cmi
 	$(OCAMLC) -I bin -o bin/htree.cmi -c src/htree.mli
@@ -63,34 +63,34 @@ bin/assets.cmi: src/assets.mli bin/hash.cmi bin/logic.cmi bin/mathdata.cmi bin/c
 	$(OCAMLC) -I bin -o bin/assets.cmi -c src/assets.mli
 
 bin/secp256k1.cmi: src/secp256k1.mli
-	$(OCAMLC) -I bin -o bin/secp256k1.cmi -c src/secp256k1.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/secp256k1.cmi -c src/secp256k1.mli
 
 bin/cryptocurr.cmi: src/cryptocurr.mli bin/hash.cmi bin/secp256k1.cmi bin/json.cmi
-	$(OCAMLC) -I bin -o bin/cryptocurr.cmi -c src/cryptocurr.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/cryptocurr.cmi -c src/cryptocurr.mli
 
 bin/signat.cmi: src/signat.mli bin/hash.cmi bin/sha256.cmi bin/secp256k1.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/signat.cmi -c src/signat.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/signat.cmi -c src/signat.mli
 
 bin/script.cmi: src/script.mli bin/hash.cmi bin/secp256k1.cmi bin/signat.cmi bin/json.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/script.cmi -c src/script.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/script.cmi -c src/script.mli
 
 bin/tx.cmi: src/tx.mli bin/hash.cmi bin/logic.cmi bin/mathdata.cmi bin/checking.cmi bin/assets.cmi bin/script.cmi bin/db.cmi bin/json.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/tx.cmi -c src/tx.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/tx.cmi -c src/tx.mli
 
 bin/ctre.cmi: src/ctre.mli bin/hash.cmi bin/logic.cmi bin/mathdata.cmi bin/checking.cmi bin/assets.cmi bin/tx.cmi bin/db.cmi bin/json.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/ctre.cmi -c src/ctre.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/ctre.cmi -c src/ctre.mli
 
 bin/ctregraft.cmi: src/ctregraft.mli bin/hash.cmi bin/ctre.cmi
 	$(OCAMLC) -I bin -o bin/ctregraft.cmi -c src/ctregraft.mli
 
 bin/block.cmi: src/block.mli bin/hash.cmi bin/logic.cmi bin/mathdata.cmi bin/checking.cmi bin/assets.cmi bin/signat.cmi bin/tx.cmi bin/ctre.cmi bin/ctregraft.cmi bin/db.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/block.cmi -c src/block.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/block.cmi -c src/block.mli
 
 bin/ltcrpc.cmi: src/ltcrpc.mli bin/block.cmi bin/hash.cmi bin/sha256.cmi
 	$(OCAMLC) -I bin -I +threads -o bin/ltcrpc.cmi -c src/ltcrpc.mli
 
 bin/net.cmi: src/net.mli bin/hash.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -I +threads -o bin/net.cmi -c src/net.mli
+	$(OCAMLC) -I bin -I +zarith -I +threads -o bin/net.cmi -c src/net.mli
 
 bin/blocktree.cmi: src/blocktree.mli bin/hash.cmi bin/signat.cmi bin/tx.cmi bin/ctre.cmi bin/block.cmi bin/net.cmi bin/ltcrpc.cmi bin/mathdata.cmi
 	$(OCAMLC) -I bin -o bin/blocktree.cmi -c src/blocktree.mli
@@ -99,7 +99,7 @@ bin/setconfig.cmi: src/setconfig.mli bin/json.cmi
 	$(OCAMLC) -I bin -o bin/setconfig.cmi -c src/setconfig.mli
 
 bin/commands.cmi: src/commands.mli bin/ctre.cmi bin/json.cmi bin/zarithint.cmi
-	$(OCAMLC) -I bin -o bin/commands.cmi -c src/commands.mli
+	$(OCAMLC) -I bin -I +zarith -o bin/commands.cmi -c src/commands.mli
 
 bin/inputdraft.cmi: src/inputdraft.mli bin/logic.cmi bin/mathdata.cmi bin/hash.cmi
 	$(OCAMLC) -I bin -o bin/inputdraft.cmi -c src/inputdraft.mli
@@ -228,7 +228,7 @@ bin/script.cmo: src/script.ml bin/script.cmi bin/cryptocurr.cmo bin/secp256k1.cm
 	$(OCAMLC) -I bin -I +zarith -o bin/script.cmo -c src/script.ml
 
 bin/zarithint.cmo: src/zarithint.ml
-	$(OCAMLC) -I bin -o bin/zarithint.cmo -c src/zarithint.ml
+	$(OCAMLC) -I bin -I +zarith -o bin/zarithint.cmo -c src/zarithint.ml
 
 bin/json.cmo: src/json.ml bin/json.cmi bin/zarithint.cmo
 	$(OCAMLC) -I bin -I +zarith -o bin/json.cmo -c src/json.ml

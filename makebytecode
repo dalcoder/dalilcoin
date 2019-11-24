@@ -63,9 +63,9 @@ ocamlc -I bin -I +threads -I +zarith -o bin/commands.cmo -c src/commands.ml
 ocamlc -I bin -I +threads -o bin/inputdraft.cmo -c src/inputdraft.ml
 ocamlc -I bin -I +threads -I +zarith -o bin/staking.cmo -c src/staking.ml
 ocamlc -I bin -I +threads -I +zarith -o bin/dalilcoin.cmo -c src/dalilcoin.ml
-ocamlc -I bin -I +threads -I +zarith -o bin/dalilcoinbc unix.cma threads.cma nums.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoin.cmo
+ocamlc -I bin -I +threads -I +zarith -o bin/dalilcoinbc unix.cma threads.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoin.cmo
 ocamlc -I bin -I +threads -o bin/dalilcoincli.cmo -c src/dalilcoincli.ml
-ocamlc -I bin -I +threads -I +zarith -o bin/dalilcoinclibc unix.cma threads.cma nums.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoincli.cmo
+ocamlc -I bin -I +threads -I +zarith -o bin/dalilcoinclibc unix.cma threads.cma zarith.cma zarithint.cmo json.cmo config.cmo version.cmo utils.cmo ser.cmo hashaux.cmo sha256.cmo ripemd160.cmo hash.cmo htree.cmo net.cmo db.cmo secp256k1.cmo cryptocurr.cmo signat.cmo script.cmo logic.cmo mathdata.cmo checking.cmo assets.cmo tx.cmo ctre.cmo ctregraft.cmo block.cmo ltcrpc.cmo blocktree.cmo setconfig.cmo commands.cmo inputdraft.cmo staking.cmo dalilcoincli.cmo
 cd bin
 ln -s dalilcoinbc dalilcoin
 ln -s dalilcoinbccli dalilcoin-cli
