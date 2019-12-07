@@ -21,6 +21,14 @@ August 2017.
 Dalilcoin is still under development. It can currently only
 be used in linux using the command line.
 
+* Requirements
+
+Dalilcoin requires the ocaml programming language and the Zarith
+module.
+
+ocaml.org
+https://github.com/ocaml/Zarith
+
 * Installation
 
 ```
